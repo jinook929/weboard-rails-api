@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   def index
     users = User.all
     render json: users, include: [:notices, :comments]
-    # render json: UserSerializer.new(users), status: :created
   end
 
   # def show
@@ -17,7 +16,6 @@ class UsersController < ApplicationController
     if user.save
       # session[:user_id] = user.id
       render json: user
-      # render json: UserSerializer.new(user)
     else
       render json: {message: "Sign up failed..."}
     end

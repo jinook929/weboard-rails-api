@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
   def index
     comments = Comment.all.order(updated_at: :desc)
     render json: comments, include: [:user, :notice]
-    # render json: CommentSerializer.new(comments), status: :created
   end
 
   def create
@@ -10,7 +9,6 @@ class CommentsController < ApplicationController
     comment = Comment.new(content: params[:comment][:content], notice_id: params[:comment][:notice_id], user_id: user.id, username: user.username)
     if comment.save
       render json: comment
-      # render json: CommentSerializer.new(comment)
     else
       render json: {message: "Comment could not posted..."}
     end
