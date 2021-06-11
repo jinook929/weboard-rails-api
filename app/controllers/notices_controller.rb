@@ -8,7 +8,7 @@ class NoticesController < ApplicationController
   def show
     notice = Notice.find_by(id: params[:id])
     if(notice)
-      render json: notice
+      render json: notice, include: [:user, :comments]
     else
       render json: {message: "Notice not found..."}
     end
