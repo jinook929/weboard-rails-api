@@ -1,7 +1,8 @@
 class NoticesController < ApplicationController
   def index
     notices = Notice.all.order(updated_at: :desc)
-    render json: notices, include: [:user, :comments]
+    # render json: notices, include: [:user, :comments]
+    render json: NoticeSerializer.new(notices)
   end
 
   # def show
@@ -49,7 +50,8 @@ class NoticesController < ApplicationController
 
   def search
     notices = Notice.where("lower(title) LIKE ?", "%#{params[:keyword]}%").or(Notice.where("lower(description) LIKE ?", "%#{params[:keyword]}%")).order(updated_at: :desc)
-    render json: notices.uniq
+    # render json: notices.uniq
+    render json: CommentSerializer.new(notices).uniq
   end
 
   def notice_params

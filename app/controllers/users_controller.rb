@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def index
     users = User.all
-    render json: users, include: [:notices, :comments]
+    # render json: users, include: [:notices, :comments]
+    render json: UserSerializer.new(users)
   end
 
   # def show

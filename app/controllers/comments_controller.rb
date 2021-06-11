@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
   def index
     comments = Comment.all.order(updated_at: :desc)
-    render json: comments, include: [:user, :notice]
+    # render json: comments, include: [:user, :notice]
+    render json: CommentSerializer.new(comments)
   end
 
   def create

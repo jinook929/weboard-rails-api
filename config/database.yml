@@ -20,6 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # pool: 5
 
 development:
   <<: *default
@@ -83,4 +84,5 @@ production:
   <<: *default
   database: weboard_rails_api_production
   username: weboard_rails_api
+  # password: WEBOARD_RAILS_API_DATABASE_PASSWORD
   password: <%= ENV['WEBOARD_RAILS_API_DATABASE_PASSWORD'] %>
