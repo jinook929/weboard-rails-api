@@ -50,7 +50,7 @@ class NoticesController < ApplicationController
 
   def search
     notices = Notice.where("lower(title) LIKE ?", "%#{params[:keyword]}%").or(Notice.where("lower(description) LIKE ?", "%#{params[:keyword]}%")).order(updated_at: :desc)
-    render json: notices.uniq
+    render json: notices.uniq, include: [:user, :comments]
     # render json: CommentSerializer.new(notices).uniq
   end
 
