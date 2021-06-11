@@ -2,7 +2,7 @@ class NoticesController < ApplicationController
   def index
     notices = Notice.all.order(updated_at: :desc)
     # render json: notices, include: [:user, :comments]
-    render json: NoticeSerializer.new(notices)
+    render json: NoticeSerializer.new(notices), status: :created
   end
 
   # def show
@@ -19,8 +19,8 @@ class NoticesController < ApplicationController
     notice = Notice.new(notice_params)
     notice.user_id = user.id
     if notice.save
-      # render json: notice
-      render json: NoticeSerializer.new(notice)
+      render json: notice
+      # render json: NoticeSerializer.new(notice)
     else
       render json: {message: "Notice could not posted..."}
     end
@@ -31,8 +31,8 @@ class NoticesController < ApplicationController
     if notice[:title] == params[:notice][:title] && notice[:description] == params[:notice][:description] && notice[:category] == params[:notice][:category]
       render json: {message: "No change detected..."}
     elsif notice.update(title: params[:notice][:title], description: params[:notice][:description], category: params[:notice][:category])
-      # render json: notice
-      render json: NoticeSerializer.new(notice)
+      render json: notice
+      # render json: NoticeSerializer.new(notice)
     else
       render json: {message: "Update failed..."}
     end
@@ -50,8 +50,8 @@ class NoticesController < ApplicationController
 
   def search
     notices = Notice.where("lower(title) LIKE ?", "%#{params[:keyword]}%").or(Notice.where("lower(description) LIKE ?", "%#{params[:keyword]}%")).order(updated_at: :desc)
-    # render json: notices.uniq
-    render json: CommentSerializer.new(notices).uniq
+    render json: notices.uniq
+    # render json: CommentSerializer.new(notices).uniq
   end
 
   def notice_params
