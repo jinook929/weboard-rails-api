@@ -5,14 +5,14 @@ class NoticesController < ApplicationController
     # render json: NoticeSerializer.new(notices), status: :created
   end
 
-  # def show
-  #   notice = Notice.find_by(id: params[:id])
-  #   if(notice)
-  #     render json: notice
-  #   else
-  #     render json: {message: "Notice not found..."}
-  #   end
-  # end
+  def show
+    notice = Notice.find_by(id: params[:id])
+    if(notice)
+      render json: notice
+    else
+      render json: {message: "Notice not found..."}
+    end
+  end
 
   def create
     user = User.find_by(password_digest: params[:notice][:user_digest])
