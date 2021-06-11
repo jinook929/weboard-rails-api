@@ -1,8 +1,8 @@
 class NoticesController < ApplicationController
   def index
     notices = Notice.all.order(updated_at: :desc)
-    # render json: notices, include: [:user, :comments]
-    render json: NoticeSerializer.new(notices), status: :created
+    render json: notices, include: [:user, :comments]
+    # render json: NoticeSerializer.new(notices), status: :created
   end
 
   # def show
